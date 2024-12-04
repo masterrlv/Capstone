@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  master:
+    image: anubhavlv/master_model:v1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - mlnetwork
+
+  slave1:
+    image: anubhavlv/worker_model:v1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    environment:
+      - MODEL=ml_model_1.h5
+    networks:
+      - mlnetwork
+
+networks:
+  mlnetwork:
+    driver: overlay
