@@ -6,16 +6,9 @@ WORKDIR /app
 
 # Copy the requirements file
 COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Install required Python libraries
-RUN pip install --no-cache-dir -r requirements.txt
-
-
-# Copy the Python script
 COPY continuous_testing.py .
-
-
-# Copy the CSV file into the container
 COPY master_model_depl_test.csv /app/master_model_depl_test.csv
 
 # Expose port (if API is running in another container)
